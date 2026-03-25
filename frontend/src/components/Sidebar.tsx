@@ -116,7 +116,7 @@ export const Sidebar: React.FC<Props> = ({ isSidebarOpen, handleOpenSidebar }) =
           <div>
             <h1 className="text-sm font-medium">{user?.fullName}</h1>
             <p className="text-xs text-gray-500">
-              <Show when={{ plan: "pro" }} fallback={<p>Upgrade to Pro</p>}>
+              <Show when={{ plan: "pro" }} fallback={<span>Upgrade to Pro</span>}>
                 Premium
               </Show>
             </p>
