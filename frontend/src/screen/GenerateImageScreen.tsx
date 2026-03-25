@@ -38,6 +38,7 @@ const GenerateImageScreen: React.FC = () => {
           placeholder="What you want to see in the image"
           required
           onChange={(e) => setInput(e.target.value)}
+          value={input}
         />
         <p className="mt-4 text-sm font-medium">Style</p>
         <div className="flex flex-wrap gap-3 mt-3 sm:max-w-9/11">
@@ -61,6 +62,7 @@ const GenerateImageScreen: React.FC = () => {
               checked={publish}
               onChange={(e) => setPublish(e.target.checked)}
               className="sr-only peer"
+              value={input}
             />
             <div className="w-9 h-5 bg-slate-300 rounded-full peer-checked:bg-green-500 transition"></div>
             <span className="absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition peer-checked:translate-x-4"></span>

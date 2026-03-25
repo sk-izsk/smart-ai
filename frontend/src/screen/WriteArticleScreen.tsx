@@ -32,6 +32,7 @@ const WriteArticleScreen: React.FC = () => {
           placeholder="The future of AI is..."
           required
           onChange={(e) => setInput(e.target.value)}
+          value={input}
         />
         <p className="mt-4 text-sm font-medium">Article Length</p>
         <div className="flex flex-wrap gap-3 mt-3 sm:max-w-9/11">
