@@ -1,22 +1,7 @@
-import { Eraser, Hash, Sparkles } from "lucide-react";
+import { Eraser, Sparkles } from "lucide-react";
 import React, { useState } from "react";
 
-const blogCategories = [
-  "General",
-  "Technology",
-  "Business",
-  "Health",
-  "Travel",
-  "Food",
-  "Lifestyle",
-  "Education",
-  "Finance",
-  "Entertainment",
-  "Sports",
-];
-
 const RemoveBackgroundScreen: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState(blogCategories[0]);
   const [input, setInput] = useState("");
 
   const handleSubmit = (e: React.SubmitEvent) => {

@@ -1,4 +1,4 @@
-import { Edit, Hash, Sparkles } from "lucide-react";
+import { Hash, Sparkles } from "lucide-react";
 import React, { useState } from "react";
 import { cn } from "../utils/tailwindClass";
 
