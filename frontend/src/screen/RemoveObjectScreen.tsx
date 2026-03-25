@@ -1,23 +1,7 @@
 import { Scissors, Sparkles } from "lucide-react";
 import React, { useState } from "react";
-import { cn } from "../utils/tailwindClass";
-
-const blogCategories = [
-  "General",
-  "Technology",
-  "Business",
-  "Health",
-  "Travel",
-  "Food",
-  "Lifestyle",
-  "Education",
-  "Finance",
-  "Entertainment",
-  "Sports",
-];
 
 const RemoveObjectScreen: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState(blogCategories[0]);
   const [input, setInput] = useState("");
   const [object, setObject] = useState("");
 
@@ -51,21 +35,7 @@ const RemoveObjectScreen: React.FC = () => {
           onChange={(e) => setObject(e.target.value)}
           value={object}
         />
-        <div className="flex flex-wrap gap-3 mt-3 sm:max-w-9/11">
-          {blogCategories.map((option) => (
-            <span
-              onClick={() => setSelectedCategory(option)}
-              className={cn(`px-4 py-1 text-xs border rounded-full cursor-pointer`, {
-                "bg-purple-50 text-purple-700": selectedCategory === option,
-                "border-gray-300 text-gray-500": selectedCategory !== option,
-              })}
-              key={option}
-            >
-              {option}
-            </span>
-          ))}
-        </div>
-        <br />
+
         <button className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#417df6] to-[#8E37EB] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer">
           <Scissors className="w-5" />
           Remove Object
