@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router'
+import { Route, Routes } from "react-router";
 import {
   BlogTitlesScreen,
   CommunityScreen,
@@ -10,7 +10,7 @@ import {
   RemoveObjectScreen,
   ReviewResumeScreen,
   WriteArticleScreen,
-} from './lazyComponents'
+} from "./lazyComponents";
 
 export const AppRouter: React.FC = () => {
   return (
@@ -27,5 +27,5 @@ export const AppRouter: React.FC = () => {
         <Route path="community" element={<CommunityScreen />} />
       </Route>
     </Routes>
-  )
-}
+  );
+};
