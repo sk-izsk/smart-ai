@@ -1,0 +1,51 @@
+{
+  "name": "smart-ai-backend",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "db:push": "drizzle-kit push",
+    "db:seed:demo": "node scripts/seed-demo-data.js",
+    "test:e2e": "cross-env NODE_ENV=test vitest run --config vitest.config.ts",
+    "test:e2e:watch": "cross-env NODE_ENV=test vitest --config vitest.config.ts"
+  },
+  "dependencies": {
+    "@clerk/express": "^1.7.73",
+    "@google/genai": "^1.46.0",
+    "@neondatabase/serverless": "^1.0.2",
+    "axios": "^1.13.6",
+    "cloudinary": "^2.9.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "drizzle-orm": "^0.45.1",
+    "express": "^5.2.1",
+    "multer": "^2.1.1",
+    "openai": "^6.33.0",
+    "pdf-parse": "^2.4.5",
+    "pg": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^5.2.3",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/multer": "^2.1.0",
+    "@types/pdf-parse": "^1.1.5",
+    "@types/pg": "^8.16.0",
+    "@types/supertest": "^7.2.0",
+    "chai": "^6.2.2",
+    "cross-env": "^10.1.0",
+    "drizzle-kit": "^0.31.9",
+    "nodemon": "^3.1.14",
+    "supertest": "^7.2.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.0"
+  }
+}
