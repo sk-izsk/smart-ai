@@ -1,11 +1,14 @@
 import { Request, Response } from "express";
-import { sql } from "../config/db";
+import { Creation } from "../entities/Creation";
 
 export const getUserCreations = async (req: Request, res: Response) => {
   try {
     const { userId } = req.auth();
-    const creations =
-      await sql`SELECT * FROM creations WHERE user_id = ${userId} ORDER BY created_at DESC`;
+    const creations = await req.em?.find(
+      Creation,
+      { userId: userId },
+      { orderBy: { createdAt: "DESC" } },
+    );
     res.json({ success: true, creations });
   } catch (error) {
     res.json({ success: false, message: error });
@@ -14,8 +17,11 @@ export const getUserCreations = async (req: Request, res: Response) => {
 
 export const getPublishedCreations = async (req: Request, res: Response) => {
   try {
-    const creations =
-      await sql`SELECT * FROM creations WHERE publish = true ORDER BY created_at DESC`;
+    const creations = await req.em?.find(
+      Creation,
+      { publish: true },
+      { orderBy: { createdAt: "DESC" } },
+    );
     res.json({ success: true, creations });
   } catch (error) {
     res.json({ success: false, message: error });
@@ -26,11 +32,11 @@ export const toggleLikeCreation = async (req: Request, res: Response) => {
   try {
     const { userId } = req.auth();
     const { id } = req.body;
-    const [creation] = await sql`SELECT * FROM creations WHERE id = ${id}`;
+    const creation = await req.em?.findOne(Creation, { id });
     if (!creation) {
       return res.json({ success: false, message: "Creation not found" });
     }
-    const likes = creation.likes || [];
+    const likes = (creation as any).likes || [];
     const hasLiked = likes.includes(userId);
     let updatedLikes;
     let message;
@@ -41,13 +47,11 @@ export const toggleLikeCreation = async (req: Request, res: Response) => {
       updatedLikes = [...likes, userId];
       message = "Creation liked";
     }
-
-    const formattedArray = `{${updatedLikes.join(",")}}`;
-
-    await sql`UPDATE creations SET likes = ${formattedArray}::text[] WHERE id = ${id}`;
-
-    // const creations =
-    //   await sql`SELECT * FROM creations WHERE publish = true ORDER BY created_at DESC`;
+    (creation as any).likes = updatedLikes;
+    if (req.em) {
+      req.em.persist(creation);
+      await req.em.flush();
+    }
     res.json({ success: true, message });
   } catch (error) {
     res.json({ success: false, message: error });

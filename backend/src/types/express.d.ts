@@ -1,3 +1,5 @@
+import { EntityManager, MikroORM } from "@mikro-orm/core";
+
 export {};
 declare global {
   namespace Express {
@@ -5,6 +7,8 @@ declare global {
       auth: () => { userId: string; has: (args: any) => boolean };
       free_usage?: number;
       plan?: "premium" | "free";
+      orm?: MikroORM;
+      em?: EntityManager;
     }
   }
 }
