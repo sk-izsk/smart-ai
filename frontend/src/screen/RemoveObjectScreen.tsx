@@ -1,9 +1,9 @@
 import { Scissors, Sparkles } from "lucide-react";
 import React, { useState } from "react";
+import { FileInputCard } from "../components/FileInputCard";
 import { GenerateResultCard } from "../components/GenerateResultCard";
 
 const RemoveObjectScreen: React.FC = () => {
-  const [, setInput] = useState("");
   const [object, setObject] = useState("");
 
   const handleSubmit = (e: React.SubmitEvent) => {
@@ -11,37 +11,27 @@ const RemoveObjectScreen: React.FC = () => {
   };
   return (
     <div className="flex flex-wrap items-start h-full gap-4 p-6 overflow-y-scroll text-slate-700">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg"
-      >
-        <div className="flex items-center gap-3">
+      <FileInputCard handleSubmit={handleSubmit}>
+        <FileInputCard.Title>
           <Sparkles className="w-6 text-[#4a7aff]" />
-          <h1 className="text-xl font-semibold">Object Removal</h1>
-        </div>
-        <p className="mt-6 text-sm font-medium">Upload an image</p>
-        <input
-          type="file"
-          className="w-full p-2 px-3 mt-2 text-sm border border-gray-300 rounded-md outline-none text-gray-600"
-          required
-          onChange={(e) => setInput(e.target?.files?.[0]!.name || "")}
-          accept="image/*"
-        />
-        <p className="mt-6 text-sm font-medium">Describe Object name to remove</p>
-        <textarea
-          rows={4}
-          className="w-full p-2 px-3 mt-2 text-sm border border-gray-300 rounded-md outline-none"
-          placeholder="e.g, watch, spoon or any specific object in the image"
-          required
-          onChange={(e) => setObject(e.target.value)}
-          value={object}
-        />
-
-        <button className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#417df6] to-[#8E37EB] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer">
+          <h1 className="text-xl font-semibold">Original Image</h1>
+        </FileInputCard.Title>
+        <FileInputCard.Content>
+          <p className="mt-6 text-sm font-medium">Describe Object name to remove</p>
+          <textarea
+            rows={4}
+            className="w-full p-2 px-3 mt-2 text-sm border border-gray-300 rounded-md outline-none"
+            placeholder="e.g, watch, spoon or any specific object in the image"
+            required
+            onChange={(e) => setObject(e.target.value)}
+            value={object}
+          />
+        </FileInputCard.Content>
+        <FileInputCard.Button fromColor="#417df6" toColor="#8E37EB">
           <Scissors className="w-5" />
           Remove Object
-        </button>
-      </form>
+        </FileInputCard.Button>
+      </FileInputCard>
 
       <GenerateResultCard>
         <GenerateResultCard.Title>

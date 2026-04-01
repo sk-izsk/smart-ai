@@ -1,5 +1,6 @@
 import { FileText, Sparkles } from "lucide-react";
 import React, { useState } from "react";
+import { FileInputCard } from "../components/FileInputCard";
 import { GenerateResultCard } from "../components/GenerateResultCard";
 
 const ReviewResumeScreen: React.FC = () => {
@@ -10,28 +11,22 @@ const ReviewResumeScreen: React.FC = () => {
   };
   return (
     <div className="flex flex-wrap items-start h-full gap-4 p-6 overflow-y-scroll text-slate-700">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg"
-      >
-        <div className="flex items-center gap-3">
+      <FileInputCard handleSubmit={handleSubmit}>
+        <FileInputCard.Title>
           <Sparkles className="w-6 text-[#00da83]" />
           <h1 className="text-xl font-semibold">Resume Review</h1>
-        </div>
-        <p className="mt-6 text-sm font-medium">Upload Resume</p>
-        <input
-          type="file"
-          className="w-full p-2 px-3 mt-2 text-sm border border-gray-300 rounded-md outline-none text-gray-600"
-          required
+        </FileInputCard.Title>
+        <FileInputCard.FileInput
+          label="Upload Resume"
           onChange={(e) => setInput(e.target?.files?.[0]!.name || "")}
           accept="application/pdf"
+          suffix={<p className="text-xs text-gray-500 font-light mt-1">Supports pdf resume only</p>}
         />
-        <p className="text-xs text-gray-500 font-light mt-1">Supports pdf resume only</p>
-        <button className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#00da83] to-[#009bb3] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer">
+        <FileInputCard.Button fromColor="#00da83" toColor="#009bb3">
           <FileText className="w-5" />
           Review Resume
-        </button>
-      </form>
+        </FileInputCard.Button>
+      </FileInputCard>
 
       <GenerateResultCard>
         <GenerateResultCard.Title>
