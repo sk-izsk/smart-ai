@@ -1,12 +1,12 @@
 import { Show } from "@clerk/react";
 import { Gem, Sparkles } from "lucide-react";
 import React, { useState } from "react";
+import { CreationItem } from "../components/CreationItem";
 import { dummyCreationData } from "../mockData";
 import type { CreationData } from "../types/data";
-import { CreationItem } from "../components/CreationItem";
 
 const DashboardScreen: React.FC = () => {
-  const [creations, setCreations] = useState<CreationData[]>(dummyCreationData);
+  const [creations] = useState<CreationData[]>(dummyCreationData);
 
   return (
     <div className="h-full overflow-y-scroll p-6">

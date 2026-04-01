@@ -2,7 +2,7 @@ import { Eraser, Sparkles } from "lucide-react";
 import React, { useState } from "react";
 
 const RemoveBackgroundScreen: React.FC = () => {
-  const [input, setInput] = useState("");
+  const [, setInput] = useState("");
 
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ const RemoveBackgroundScreen: React.FC = () => {
           type="file"
           className="w-full p-2 px-3 mt-2 text-sm border border-gray-300 rounded-md outline-none text-gray-600"
           required
-          onChange={(e) => setInput(e.target?.files?.[0])}
+          onChange={(e) => setInput(e.target?.files?.[0]!.name || "")}
           accept="image/*"
         />
         <p className="text-xs text-gray-500 font-light mt-1">

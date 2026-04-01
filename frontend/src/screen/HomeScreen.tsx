@@ -1,6 +1,6 @@
 import React from "react";
 import { AiTools } from "../components/AiTools";
-import { Footer } from "../components/Footer";
+import { Footer } from "../components/footer/Footer";
 import { HeroSection } from "../components/HeroSection";
 import { Navbar } from "../components/Navbar";
 import { Plan } from "../components/Plan";
