@@ -6,8 +6,8 @@ import { Request, Response } from "express";
 import fs from "fs";
 import OpenAI from "openai";
 import pdf from "pdf-parse";
-import { sql } from "../config/db";
 import { ENV } from "../config/env";
+import { Creation } from "../entities/Creation";
 
 const AI = new OpenAI({
   apiKey: ENV.GEMINI_API_KEY,
@@ -52,7 +52,16 @@ export const generateArticle = async (req: Request, res: Response) => {
       // maxOutputTokens: length,
     });
     const content = response.text;
-    await sql`INSERT INTO creations (user_id, prompt, content, type) VALUES (${userId}, ${prompt}, ${content}, 'article')`;
+    const creation = req.em?.create(Creation, {
+      user_id: userId,
+      prompt,
+      content,
+      type: "article",
+    });
+    if (req.em && creation) {
+      req.em.persist(creation);
+      await req.em.flush();
+    }
 
     if (plan !== "premium") {
       await clerkClient.users.updateUserMetadata(userId, {
@@ -89,7 +98,16 @@ export const generateBlogTitle = async (req: Request, res: Response) => {
       },
     });
     const content = response.text;
-    await sql`INSERT INTO creations (user_id, prompt, content, type) VALUES (${userId}, ${prompt}, ${content}, 'blog-title')`;
+    const creation = req.em?.create(Creation, {
+      user_id: userId,
+      prompt,
+      content,
+      type: "blog-title",
+    });
+    if (req.em && creation) {
+      req.em.persist(creation);
+      await req.em.flush();
+    }
 
     if (plan !== "premium") {
       await clerkClient.users.updateUserMetadata(userId, {
@@ -141,7 +159,17 @@ export const generateImage = async (req: Request, res: Response) => {
     //   },
     // });
     // const content = response.text;
-    await sql`INSERT INTO creations (user_id, prompt, content, type , publish) VALUES (${userId}, ${prompt}, ${secure_url}, 'image' , ${publish ?? false})`;
+    const creation = req.em?.create(Creation, {
+      user_id: userId,
+      prompt,
+      content: secure_url,
+      type: "image",
+      publish: publish ?? false,
+    });
+    if (req.em && creation) {
+      req.em.persist(creation);
+      await req.em.flush();
+    }
 
     res.json({ success: true, content: secure_url });
   } catch (error) {
@@ -195,7 +223,16 @@ export const removeImageBackground = async (req: Request, res: Response) => {
     //   },
     // });
     // const content = response.text;
-    await sql`INSERT INTO creations (user_id, prompt, content, type ) VALUES (${userId}, 'Remove background from image', ${secure_url}, 'image')`;
+    const creation = req.em?.create(Creation, {
+      user_id: userId,
+      prompt: "Remove background from image",
+      content: secure_url,
+      type: "image",
+    });
+    if (req.em && creation) {
+      req.em.persist(creation);
+      await req.em.flush();
+    }
 
     res.json({ success: true, content: secure_url });
   } catch (error) {
@@ -253,7 +290,16 @@ export const removeImageObject = async (req: Request, res: Response) => {
     //   },
     // });
     // const content = response.text;
-    await sql`INSERT INTO creations (user_id, prompt, content, type ) VALUES (${userId}, ${`Remove ${object} from image`}, ${imageUrl}, 'image')`;
+    const creation = req.em?.create(Creation, {
+      user_id: userId,
+      prompt: `Remove ${object} from image`,
+      content: imageUrl,
+      type: "image",
+    });
+    if (req.em && creation) {
+      req.em.persist(creation);
+      await req.em.flush();
+    }
 
     res.json({ success: true, content: imageUrl });
   } catch (error) {
@@ -313,7 +359,16 @@ export const resumeReview = async (req: Request, res: Response) => {
     });
     const content = response.text;
 
-    await sql`INSERT INTO creations (user_id, prompt, content, type ) VALUES (${userId}, 'Review the resume', ${content}, 'resume-review ')`;
+    const creation = req.em?.create(Creation, {
+      user_id: userId,
+      prompt: "Review the resume",
+      content,
+      type: "resume-review",
+    });
+    if (req.em && creation) {
+      req.em.persist(creation);
+      await req.em.flush();
+    }
 
     res.json({ success: true, content });
   } catch (error) {
