@@ -1,11 +1,10 @@
-import { Show, useClerk, useUser } from "@clerk/react";
+import { useUser } from "@clerk/react";
 import {
   Eraser,
   FileText,
   Hash,
   House,
   Image,
-  LogOut,
   Scissors,
   SquarePen,
   Users,
@@ -14,6 +13,7 @@ import {
 import React from "react";
 import { NavLink } from "react-router";
 import { cn } from "../utils/tailwindClass";
+import { UserPremiumSection } from "./UserPremiumSection";
 
 interface Props {
   isSidebarOpen?: boolean;
@@ -73,7 +73,6 @@ const navItems: NavItem[] = [
 
 export const Sidebar: React.FC<Props> = ({ isSidebarOpen, handleOpenSidebar }) => {
   const { user } = useUser();
-  const { signOut, openUserProfile } = useClerk();
   return (
     <div
       className={cn(
@@ -110,23 +109,7 @@ export const Sidebar: React.FC<Props> = ({ isSidebarOpen, handleOpenSidebar }) =
           ))}
         </div>
       </div>
-      <div className="w-full border-t border-gray-200 p-4 px-7 flex items-center justify-between">
-        <div onClick={() => openUserProfile()} className="cursor-pointer flex gap-2 items-center">
-          <img src={user?.imageUrl} alt="User Avatar" className="w-8 rounded-full" />
-          <div>
-            <h1 className="text-sm font-medium">{user?.fullName}</h1>
-            <p className="text-xs text-gray-500">
-              <Show when={{ plan: "pro" }} fallback={<span>Upgrade to Pro</span>}>
-                Premium
-              </Show>
-            </p>
-          </div>
-        </div>
-        <LogOut
-          className="w-4.5 text-gray-400 hover:text-gray-700 transition cursor-pointer"
-          onClick={() => signOut()}
-        />
-      </div>
+      <UserPremiumSection />
     </div>
   );
 };

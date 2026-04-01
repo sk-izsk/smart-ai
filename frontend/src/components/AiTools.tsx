@@ -2,6 +2,7 @@ import { useUser } from "@clerk/react";
 import React from "react";
 import { useNavigate } from "react-router";
 import { AiToolsData } from "../mockData";
+import { AiCard } from "./AiCard";
 
 export const AiTools: React.FC = () => {
   const navigate = useNavigate();
@@ -17,20 +18,7 @@ export const AiTools: React.FC = () => {
       </div>
       <div className="flex flex-wrap justify-center mt-10">
         {AiToolsData.map((tool) => (
-          <div
-            key={tool.title}
-            className="p-8 m-4 max-w-xs rounder-lg bg-[#FDFDFE] shadow-lg border-gray-100 hover:-translate-y-1 transition-all duration-300 cursor-pointer"
-            onClick={() => user && navigate(tool.path)}
-          >
-            <tool.Icon
-              className="w-12 h-12 p-3 text-white rounded-xl"
-              style={{
-                background: `linear-gradient(to bottom, ${tool.bg.from}, ${tool.bg.to})`,
-              }}
-            />
-            <h3 className="text-lg font-semibold mt-6 mb-3">{tool.title}</h3>
-            <p className="text-gray-400 text-sm max-w-[95%]">{tool.description}</p>
-          </div>
+          <AiCard key={tool.title} tool={tool} onClick={() => user && navigate(tool.path)} />
         ))}
       </div>
     </div>
